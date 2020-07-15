@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 25%;
+            margin: auto;
+            background-color: lightgray;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px black;
+            padding: 0 3%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 5vh;
+            font-size: 1.8em;
+        }
+
+        #jahr {
+            display: flex;
+            flex-direction: column;
+        }
+
+        section {
+            margin-bottom: 5vh;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="">
+        <section>
+            <h1>Berechnung der Einkommensteuer </h1>
+            <p>Willkommen beim Steuerhilfeverein. <br> Geben Sie Ihre Daten ein und bekommen kostenlos die Berechnung!
+            </p>
+        </section>
+
+        <section>
+            <label for="">Gebe das Geschäftsjahr ein</label>
+            <select name="" id="jahr">
+                <option value="jahrAngeben">Jahr</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+            </select>
+            <p id="jahrAngeben"></p>
+        </section>
+
+        <section>
+            <label for="">Bitte geben Sie die Anzahl der Personen</label>
+            <select name="" id="person">
+                <option value="personAngeben">Anzahl der Personen</option>
+                <option value="1Person">1</option>
+                <option value="2Person">2</option>
+            </select>
+            <p id="personenAngeben"></p>
+        </section>
+
+        <section>
+            <label for="">Bitte geben Sie den zu versteuernde Einkommen ein</label>
+            <br>
+            <label for="">Einkommen Person 1</label>
+            <input type="number" name="" id="zvE1">
+            <label for="">Einkommen Person 2</label>
+            <input type="number" name="" id="zvE2">
+        </section>
+        <input type="button" value="Berechnung" onclick="berechnen()">
+        <h2 id="ausgabePerson1"></h2>
+        <h2 id="ausgabePerson2"></h2>
+        </section>
+    </form>
+
+    <script>
+
+
+        let zvE
+        let est;
+
+
+        function berechnen() {
+            let jahr = document.getElementById("jahr").value;
+            let personen = document.getElementById("person").value;
+            let zvE1 = Number()
+            console.log(jahr)
+            if (jahr == 'jahrAngeben') {
+                document.getElementById("jahrAngeben").innerHTML = "Bitte geben Sie das Jahr ein"
+            }
+            else if (jahr == '2020') {
+                console.log("test")
+                if (personen == 'personAngeben') {
+                    document.getElementById("personenAngeben").innerHTML = "Bitte geben Sie die Anzahl der Personen ein"
+                }
+                else if (personen == '1Person') {
+                    zvE = Number(document.getElementById("zvE1").value)
+                    console.log(zvE)
+                }
+                else {
+                    zvE = (Number(document.getElementById("zvE1").value) + Number(document.getElementById("zvE2").value)) / 2;
+                    console.log(zvE)
+                }
+                
+                // EST 2020
+                if (zvE <= 9408) {
+                    est = 0;
+                } else if (zvE >= 9408 && zvE <= 14532) {
+                    let y=(zvE - 9408) / 10000
+                    est = ((972.87 * y) + 1400) * y;
+                } else if (zvE >= 14532 && zvE <= 57051) {
+                    est = (212.02 * (zvE - 14532) / 10000) + (2397 * (zvE - 14532) / 10000) + 972.79
+                } else if (zvE >= 57051 && zvE <= 270500) {
+                    est = .42 * zvE - 8963.74
+                } else if (zvE <= 270501) {
+                    est = .42 * zvE - 17078.74
+                }
+                console.log(est)
+            // // EST 2019
+            // if (zvE <= 9168) {
+            //     est = 0;
+            // } else if (zvE >= 9168 && zvE <= 14254) {
+            //     est = ((980.14 * (zvE - 9168) / 10000) + 1400) * ((zvE - 9168) / 10000);
+            // } else if (zvE >= 14254 && zvE <= 55960) {
+            //     est = (216.16 * (zvE - 14254) / 10000) + (2397 * (zvE - 14254) / 10000) + 965.58
+            // } else if (zvE >= 55960 && zvE <= 265326) {
+            //     est = .42 * zvE - 8780.9
+            // } else if (zvE <= 265327) {
+            //     est = .45 * zvE - 16740.68
+            // }
+            // // EST 2019
+            // if (zvE <= 9000) {
+            //     est = 0;
+            // } else if (zvE >= 9000 && zvE <= 13996) {
+            //     est = ((997.8 * (zvE - 9000) / 10000) + 1400) * ((zvE - 9000) / 10000);
+            // } else if (zvE >= 13996 && zvE <= 54949) {
+            //     est = (220.13 * (zvE - 13996) / 10000) + (2397 * (zvE - 13996) / 10000) + 948.49
+            // } else if (zvE >= 54949 && zvE <= 260533) {
+            //     est = .42 * zvE - 8621.75
+            // } else if (zvE <= 260533) {
+            //     est = .45 * zvE - 16437.7
+            // }
+                
+            // }
+            }else if (jahr == '2019') {
+                if (personen == 'personAngeben') {
+                    document.getElementById("personenAngeben").innerHTML = "Bitte geben Sie die Anzahl der Personen ein"
+                }
+                else if (personen == '1Person') {
+                    zvE == +document.getElementById("zvE1").value
+                }
+                else {
+                    zvE = (+document.getElementById("zvE1").value + document.getElementById("zvE2").value) / 2;
+                }
+            }
+            else if (jahr == '2018') {
+                if (personen == 'personAngeben') {
+                    document.getElementById("personenAngeben").innerHTML = "Bitte geben Sie die Anzahl der Personen ein"
+                }
+                else if (personen == '1Person') {
+                    zvE == +document.getElementById("zvE1").value
+                }
+                else {
+                    zvE = (+document.getElementById("zvE1").value + document.getElementById("zvE2").value) / 2;
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            // if (document.getElementById("jahr").value)
+            //     // EST 2020
+            //     if (zvE <= 9408) {
+            //         est = 0;
+            //     } else if (zvE >= 9408 && zvE <= 14532) {
+            //         est = ((972, 87 * (zvE - 9408) / 10000) + 1400) * ((zvE - 9408) / 10000);
+            //     } else if (zvE >= 14532 && zvE <= 57051) {
+            //         est = (212.02 * (zvE - 14532) / 10000) + (2397 * (zvE - 14532) / 10000) + 972.79
+            //     } else if (zvE >= 57051 && zvE <= 270500) {
+            //         est = .42 * zvE - 8963.74
+            //     } else if (zvE <= 270501) {
+            //         est = .42 * zvE - 17078.74
+            //     }
+            // // EST 2019
+            // if (zvE <= 9168) {
+            //     est = 0;
+            // } else if (zvE >= 9168 && zvE <= 14254) {
+            //     est = ((980.14 * (zvE - 9168) / 10000) + 1400) * ((zvE - 9168) / 10000);
+            // } else if (zvE >= 14254 && zvE <= 55960) {
+            //     est = (216.16 * (zvE - 14254) / 10000) + (2397 * (zvE - 14254) / 10000) + 965.58
+            // } else if (zvE >= 55960 && zvE <= 265326) {
+            //     est = .42 * zvE - 8780.9
+            // } else if (zvE <= 265327) {
+            //     est = .45 * zvE - 16740.68
+            // }
+            // // EST 2019
+            // if (zvE <= 9000) {
+            //     est = 0;
+            // } else if (zvE >= 9000 && zvE <= 13996) {
+            //     est = ((997.8 * (zvE - 9000) / 10000) + 1400) * ((zvE - 9000) / 10000);
+            // } else if (zvE >= 13996 && zvE <= 54949) {
+            //     est = (220.13 * (zvE - 13996) / 10000) + (2397 * (zvE - 13996) / 10000) + 948.49
+            // } else if (zvE >= 54949 && zvE <= 260533) {
+            //     est = .42 * zvE - 8621.75
+            // } else if (zvE <= 260533) {
+            //     est = .45 * zvE - 16437.7
+            // }
+
+        }
+
+        function berechne() {
+
+            console.log("work")
+        }
+    </script>
+</body>
+
+</html>
